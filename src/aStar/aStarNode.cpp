@@ -4,8 +4,6 @@
 
 
 
-ANode::ANode()
-{}
 
 ANode::ANode (int xpos, int ypos, int G, int F){
     _xCurrentPosition=xpos;
@@ -63,13 +61,6 @@ const int & ANode::calculateHeuristic(const int & xDestinyPosition, const int & 
 
 ANode::~ANode(){}
 
-bool ANodo::operator<(const ANode a, const ANode b){
-    return a.getDistanceF() < b.getDistanceF();
-}
-bool ANodo::operator>(const ANode a, const ANode b){
-    return a.getDistanceF() > b.getDistanceF();
-}
-
-bool ANodo::operator !=(const ANode a, const ANode b){
-    return a!=b;
-}
+//bool ANode::operator<( ANode a, ANode b){
+  //  return a.getDistanceF() < b.getDistanceF();
+//}

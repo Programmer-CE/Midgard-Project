@@ -4,7 +4,8 @@
 #include <string>
 #include <math.h>
 #include "aStarNode.h"
-#include "ordinateList/doublelist.h"
+#include "PriorityQueue.h"
+#include "pqNode.h"
 
 
 const int n=60; // horizontal size of the map
@@ -19,7 +20,7 @@ int directionsY[8]={0, 1, 1, 1, 0, -1, -1, -1};
 
 
 class APathFinder{
-    DoubleList<ANode> pQueue[2];
+    PriorityQ<ANode> pQueue[2];
     int QueueIndex; // pq index
     ANode* ANodoTmp1;
     ANode* AChildNode;

@@ -3,6 +3,8 @@
 #include <math.h>
 #include "aStarPathFinder.h"
 #include "aStarNode.h"
+#include "PriorityQueue.h"
+#include <pqNode.h>
 
 
 APathFinder::APathFinder(){
@@ -19,18 +21,18 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
     //se crea el nodo referente al inicio
     ANodoTmp1=new ANode(xInitialCordenate, yInitialCordenate, 0, 0);
     ANodoTmp1->updateDistanceF(xGoalCordenate, yGoalCordenate);
-    pQueue[QueueIndex].add(*ANodoTmp1);//se agrega a la lista de nodos libres
+    pQueue[QueueIndex].push(*ANodoTmp1);//se agrega a la lista de nodos libres
     OpenANodes[x][y]=ANodoTmp1->getDistanceF(); //se agrega al map de nodos libres
 
     // A* search
     while(pQueue[QueueIndex].getLenght()!=0){
         
-        ANodoTmp1=new ANode(pQueue[QueueIndex].get(0).getXPosition(),pQueue[QueueIndex].get(0).getYPosition(),
-                       pQueue[QueueIndex].get(0).getDistanceG(),pQueue[QueueIndex].get(0).getDistanceF());
+        ANodoTmp1=new ANode(pQueue[QueueIndex].top().getXPosition(),pQueue[QueueIndex].top().getYPosition(),
+                       pQueue[QueueIndex].top().getDistanceG(),pQueue[QueueIndex].top().getDistanceF());
 
         x=ANodoTmp1->getXPosition();
         y=ANodoTmp1->getYPosition();
-        pQueue[QueueIndex].remove(0); // se qeuita de la lista de nodos libres
+        pQueue[QueueIndex].pop(); // se qeuita de la lista de nodos libres
         OpenANodes[x][y]=0;// se desmarca del map de nodos libres
         ClosedANodes[x][y]=1;//se marca en el map de nodos cerrados
 
@@ -50,7 +52,7 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
 
             delete (ANodoTmp1);
             while(pQueue[QueueIndex].getLenght()!=0){// vacia lo restante en la lista
-                pQueue[QueueIndex].remove(0);
+                pQueue[QueueIndex].pop();
             }
             return aStarPath;//retorna el path
         }
@@ -72,7 +74,7 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
                 if(OpenANodes[xdx][ydy]==0)
                 {
                     OpenANodes[xdx][ydy]=AChildNode->getDistanceF();
-                    pQueue[QueueIndex].add(*AChildNode);
+                    pQueue[QueueIndex].push(*AChildNode);
                     // posicion del ANode padre
                     directionMap[xdx][ydy]=(i+8/2)%8;
                 }
@@ -86,13 +88,13 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
                     // reemplaza el nodo
                     // pasando todo de una cola a otra
                     // ignorando el nodo que se reemplazara
-                    while(!(pQueue[QueueIndex].get(0).getXPosition()==xdx &&
-                            pQueue[QueueIndex].get(0).getYPosition()==ydy))
+                    while(!(pQueue[QueueIndex].top().getXPosition()==xdx &&
+                            pQueue[QueueIndex].top().getYPosition()==ydy))
                     {
-                        pQueue[1-QueueIndex].add(pQueue[QueueIndex].get(0));
-                        pQueue[QueueIndex].remove(0);
+                        pQueue[1-QueueIndex].push(pQueue[QueueIndex].top());
+                        pQueue[QueueIndex].pop();
                     }
-                    pQueue[QueueIndex].remove(0); //se elimina el nodo deseado
+                    pQueue[QueueIndex].pop(); //se elimina el nodo deseado
 
                     // se vacia la cola mas larga a la mas pequeña
                     if(pQueue[QueueIndex].getLenght()>pQueue[1-QueueIndex].getLenght()){
@@ -101,11 +103,11 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
 
                     while(pQueue[QueueIndex].getLenght()!=0)
                     {
-                        pQueue[1-QueueIndex].add(pQueue[QueueIndex].get(0));
-                        pQueue[QueueIndex].remove(0);
+                        pQueue[1-QueueIndex].push(pQueue[QueueIndex].top());
+                        pQueue[QueueIndex].pop();
                     }
                     QueueIndex=1-QueueIndex;
-                    pQueue[QueueIndex].add(*AChildNode); // se agreaga el ANodo que es la mejor opcion
+                    pQueue[QueueIndex].push(*AChildNode); // se agreaga el ANodo que es la mejor opcion
                 }
                 else delete(AChildNode); //
             }
