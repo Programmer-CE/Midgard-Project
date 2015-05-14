@@ -130,6 +130,40 @@ void Villager::setType(int type)
 {
     _type = type;
 }
+
+bool Villager::operator <(const Individuo &v)
+{
+    const Villager *ptr = ((const Villager*) &v);
+
+    /**
+    if (attack() < ptr->attack())return true;
+    else if (attack() == ptr->attack()){
+        if (defense() < ptr->defense())return true;
+        else if (defense() == ptr->defense())return blot() > ptr->blot();
+    }
+    return false;
+    */
+    return fitness() < v.fitness();
+}
+
+bool Villager::operator >(const Individuo &v)
+{
+    /*
+    const Villager *ptr = ((const Villager*) &v);
+    if (attack() > ptr->attack())return true;
+    else if (attack() == ptr->attack()){
+        if (defense() > ptr->defense())return true;
+        else if (defense() == ptr->defense())return blot() < ptr->blot();
+    }
+    return false;
+    */
+    return fitness() > v.fitness();
+}
+
+bool Villager::operator !=(const Individuo &v)
+{
+    return getId() != v.getId();
+}
 Villager::Villager()
 {
 }

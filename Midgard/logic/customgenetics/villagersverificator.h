@@ -7,7 +7,7 @@ class VillagersVerificator:public FitnessVerificator
 {
 public:
     VillagersVerificator();
-
+    int _Atkprom,_Defenseprom, _Blotprom;
     // FitnessVerificator interface
 public:
     float verifyIndividuo(Individuo *);

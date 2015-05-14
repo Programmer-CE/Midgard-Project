@@ -52,6 +52,10 @@ public:
     virtual ~Villager(){}
     int type() const;
     void setType(int type);
+    bool operator <(const Individuo &v);
+    bool operator >(const Individuo &v);
+    bool operator !=(const Individuo &v);
+
 };
 
 #endif // VILLAGER_H

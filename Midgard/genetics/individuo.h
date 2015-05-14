@@ -18,6 +18,7 @@ class Individuo
     float _fitness;
     int _id;
     bool _isSelected;
+    bool _toDelete = false;
     static int _Serial;
     FitnessVerificator *_fitnessverify;
 public:
@@ -40,7 +41,10 @@ public:
      * @brief getId obtiene el identificador del individuo
      * @return el identificador del individuo
      */
-    int getId();
+    int getId() const;
+
+    bool isToDelete();
+    void setToDelete(bool toDelete);
 
     /**
      * @brief fitnessverify obtiene una de las partes ensamblables del objeto el cual
@@ -59,6 +63,10 @@ public:
     virtual ~Individuo();
     bool isSelected() const;
     void setIsSelected(bool isSelected);
+
+    virtual bool operator <(const Individuo &v) = 0;
+    virtual bool operator >(const Individuo &v) = 0;
+    virtual bool operator !=(const Individuo &v) = 0;
 };
 
 #endif // INDIVIDUO_H

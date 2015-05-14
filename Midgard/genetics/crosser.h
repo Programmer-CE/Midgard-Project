@@ -27,7 +27,7 @@ public:
      * a la clase Darwin o en el metodo
      * @link Darwin.removeIndividuous()
      */
-    virtual Individuo* cross(Individuo *pParent, Poblation *pPoblation) = 0;
+    virtual Individuo* cross(Individuo *pParent, Individuo *pPoblation) = 0;
     /**
      * @brief ~Crosser liberador de memoria virtual
      */

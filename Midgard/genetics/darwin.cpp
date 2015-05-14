@@ -31,18 +31,28 @@ void Darwin::evolveStep()
     DoubleList<Comparer<Individuo> > *nuevaGeneracion =  new DoubleList<Comparer<Individuo> >();
     for (int individuo = 0; individuo < _poblacion->getLenght(); individuo++){
         if(_iterator->getCurrent().getData()->isSelected()){
-            nuevaGeneracion->add(Comparer<Individuo>(_crosser->cross(_iterator->getNext().getData(),getPoblation())));
+            Individuo *parent = searchIndividuoToMatch(_iterator->getCurrent().getData());
+            if (parent){
+                Individuo *child = _crosser->cross(parent,_iterator->getCurrent().getData());
+                nuevaGeneracion->add(Comparer<Individuo>(child));
+            }
+            else{
+            }
         }
+        _iterator->getNext();
     }
-    // remueve los individuos malos de la vieja generacion
-    removeIndividuous();
+    _newGenerationLenght = nuevaGeneracion->getLenght();
+    //agrega a los individuos buenos de la nueva generacion
     delete _iterator;
     _iterator = nuevaGeneracion->getIterator();
     for (int x = 0; x < nuevaGeneracion->getLenght();x++){
-        _poblacion->addIndividuous(_iterator->getNext().getData());
+        getPoblation()->addIndividuous(_iterator->getNext().getData());
     }
     delete nuevaGeneracion;
     delete _iterator;
+    // remueve los individuos malos de la vieja generacion
+    removeIndividuous();
+
 }
 
 Poblation *Darwin::getPoblation()

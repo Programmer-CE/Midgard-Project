@@ -15,6 +15,13 @@ public:
     explicit MidgardMenu(QWidget *parent = 0);
     ~MidgardMenu();
 
+private slots:
+    void on_insertar_clicked();
+
+    void on_borrar_clicked();
+
+    void on_ver_clicked();
+
 private:
     Ui::MidgardMenu *ui;
 };

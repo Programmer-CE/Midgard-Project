@@ -7,13 +7,14 @@
 class VillagerCrosser:public Crosser
 {
     Random _random;
-    unsigned int getMask(int pPivot, bool insertOnLeft);
+    unsigned int mask;
     int mixInts(int cromosomaA,int cromosomaB, int mascara);
+    void makeMask();
 public:
     VillagerCrosser();
     // Crosser interface
 public:
-    Individuo *cross(Individuo *pParent, Poblation *pPoblation);
+    Individuo *cross(Individuo *pParent, Individuo *pPoblation);
 };
 
 #endif // VILLAGERCROSSER_H
