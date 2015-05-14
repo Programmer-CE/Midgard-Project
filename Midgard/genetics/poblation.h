@@ -39,7 +39,7 @@ public:
      * @param pIndividuous
      * @return
      */
-    bool addIndividuous(Individuo* pIndividuous);
+    void addIndividuous(Individuo* pIndividuous);
     /**
      * @brief removeIndividuousByIndex remueve un Individuo por el indice de busqueda
      * en el caso de que el indice de busqueda sea incorrecto retornara false

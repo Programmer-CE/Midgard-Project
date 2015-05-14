@@ -3,9 +3,19 @@
 
 int Individuo::_Serial = 0;
 
-int Individuo::getId()
+int Individuo::getId()const
 {
     return _id;
+}
+
+bool Individuo::isToDelete()
+{
+    return _toDelete;
+}
+
+void Individuo::setToDelete(bool toDelete)
+{
+    _toDelete = toDelete;
 }
 
 

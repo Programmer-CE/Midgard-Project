@@ -46,6 +46,7 @@ protected:
     FinalStateVerificator *_finalStateVerificator;
     Poblation *_poblacion;
     int _generationTop;
+    int _newGenerationLenght;
     float _fitness;
     /**
      * @brief removeIndividuous remueve los individuos que son malos de la antigua generacion,
@@ -58,6 +59,14 @@ protected:
      * @return
      */
     virtual float calculateTotalFitness() = 0;
+
+
+    /**
+     * @brief searchIndividuoToMatch, busca un individuo para copular
+     * @param pParent es el individuo al cual se le buscara pareja
+     * @return la pareja del individuo
+     */
+    virtual Individuo *searchIndividuoToMatch(Individuo *pParent) = 0;
 
     virtual void select() = 0;
 };

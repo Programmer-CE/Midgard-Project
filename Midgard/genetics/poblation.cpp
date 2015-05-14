@@ -25,20 +25,27 @@ Individuo *Poblation::getIndividuousByIndex(int pIndex)
 Individuo *Poblation::getIndividuousById(int pId)
 {
     // una simple obtencion de datos
-    Individuo *individuo = new Individuo();
-    individuo->_id = pId;
-    Comparer<Individuo> comparer(individuo);
-    int pindex = _poblation->search(comparer);
-    delete individuo;
-    if (pindex == -1)individuo = 0;
-    else individuo = _poblation->get(pindex).getData();
+    IIterator<Comparer<Individuo> > *iterator = _poblation->getIterator();
+    int x;
+    for (x = 0; x < _poblation->getLenght();x++){
+        if (iterator->getCurrent().getData()->getId() == pId){
+            break;
+        }
+        iterator->getNext();
+    }
+    Individuo * individuo;
+    if (x == _poblation->getLenght()){
+        individuo = 0;
+    }
+    else individuo = iterator->getCurrent().getData();
+    delete iterator;
     return individuo;
 
 }
 
-bool Poblation::addIndividuous(Individuo *pIndividuous)
+void Poblation::addIndividuous(Individuo *pIndividuous)
 {
-    return _poblation->add(Comparer<Individuo>(pIndividuous));
+    _poblation->add(Comparer<Individuo>(pIndividuous));
 }
 
 bool Poblation::removeIndividuousByIndex(int pIndex)
@@ -49,11 +56,16 @@ bool Poblation::removeIndividuousByIndex(int pIndex)
 bool Poblation::removeIndividuousById(int pId)
 {
     // una simple obtencion de datos
-    Individuo *individuo = new Individuo();
-    individuo->_id = pId;
-    Comparer<Individuo> comparer(individuo);
-    int pindex = _poblation->search(comparer);
-    return _poblation->remove(pindex);
+    IIterator<Comparer<Individuo> > *iterator = _poblation->getIterator();
+    int x =0;
+    for (x = 0; x < _poblation->getLenght();x++){
+        if (iterator->getCurrent().getData()->getId() == pId){
+            break;
+        }
+        iterator->getNext();
+    }
+    delete iterator;
+    return _poblation->remove(x);
 }
 
 int Poblation::getLenght()

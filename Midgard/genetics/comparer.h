@@ -76,17 +76,17 @@ Comparer<E>::Comparer()
 template<class E>
 bool Comparer<E>::operator<(const Comparer<E> &toCompare)
 {
-    return _data->getId() < toCompare._data->getId();
+    return *_data < *toCompare._data;
 }
 template<class E>
 bool Comparer<E>::operator>(const Comparer<E> &toCompare)
 {
-    return _data->getId() > toCompare._data->getId();
+    return *_data > *toCompare._data;
 }
 template<class E>
 bool Comparer<E>::operator!=(const Comparer<E> &toCompare)
 {
-    return _data->getId() != toCompare._data->getId();
+    return *_data != *toCompare._data;
 }
 
 #endif // COMPARER_H
