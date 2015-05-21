@@ -7,86 +7,116 @@
 template<class T>
 class PriorityQ{
 private:
-    PQNode<T>* _head;
-    int _lenght;
+    PQNode<T>* _head;// primer valor
+    int _lenght = 0;// largo de la lista
 public:
+    /**
+      constructoe de la clase PriorityQ
+     * @brief PriorityQ
+     */
     PriorityQ();
-    ~PriorityQ();
+    /**
+      destructor de la clas PriorityQ
+     * @brief ~PriorityQ
+     */
+    virtual ~PriorityQ(){}
+    /**
+     * @brief top
+     * @return T del dato del primer nodo
+     */
     T top();
+    /**
+     * @brief topPop
+     * @return  T del dato del primer nodo y lo elimina
+     */
     T topPop();
+    /**
+     * @brief pop
+     * elimina el primer nodo
+     */
     void pop();
-    void push(T* ndata);
+    /**
+     * @brief push
+     * @param ndata
+     * agrega eel valor T ndata a la lista
+     */
+    void push(T ndata);
+    /**
+     * @brief getLenght
+     * @return int del largo del queue
+     */
     int getLenght();
+    /**
+     * @brief isEmpty
+     * @return bool si esta vacio
+     */
     bool isEmpty();
 
 };
 
-#endif // PRIORITYQUEUE_H
 
-
+template<class T>
+PriorityQ<T>::PriorityQ(){_lenght = 0;_head = 0;}
 
 
 template<class T>
 T PriorityQ<T>::top(){
-    return *_head;
-
-
+    return _head->getData();
 }
 
 template<class T>
 T PriorityQ<T>::topPop(){
     PQNode<T> *tmp=_head;
     pop();
-    return *tmp;
+    return tmp->getData();
 }
 
 template<class T>
 void  PriorityQ<T>:: pop(){
-    this->_head=this->_head->getNext();
-
-
-
-
-
+    _head=_head->getNext();
+    _lenght--;
 }
 
 template<class T>
 int PriorityQ<T>::getLenght(){
-    return this->_lenght;
+    return _lenght;
 }
 
 template<class T>
 bool PriorityQ<T>::isEmpty(){
-    return this->_lenght=0;
+    return _lenght==0;
 }
 
 template<class T>
-void PriorityQ<T>::push(T* ndata) {
-    PQNode<T> newNode=new PQNode(ndata);
-    if (_lenght==0)
+void PriorityQ<T>::push(T ndata) {
+    PQNode<T> *newNode=new PQNode<T>(ndata);
+    if (_lenght == 0){
         _head = newNode;
+    }
     else{
-
-        PQNode<T> *tmpNodeAct=_head;
-        PQNode<T> *tmpNodePrev=nullptr;
-        for (int i = 0; i < _lenght; ++i) {
-            if (*(tmpNodeAct->getData().getDistanceF())<*(newNode->getData().getDistanceF())){
-                if (tmpNodePrev == nullptr) {
-                    newNode->next = _head;
-                    _head = newNode;
-                }
-                else{
-                    tmpNodePrev->next = newNode;
-                    newNode->next = tmpNodeAct;
-                }
-                break;
-            }
-            tmpNodePrev = tmpNodeAct;
-            tmpNodeAct = tmpNodeAct->getNextNode();
+        if (_head->getData() < ndata){
+            newNode->setNext(_head);
+            _head = newNode;
         }
-        tmpNodePrev->next=newNode;
+        else{
+            PQNode<T> *tmpNodeAct=_head->getNext();
+            PQNode<T> *tmpNodePrev=_head;
+            for (int i = 0; i < _lenght; i++) {
+                if (!tmpNodeAct){
+                    tmpNodePrev->setNext(newNode);
+                    break;
+                }
+                else if (tmpNodeAct->getData() < newNode->getData()){
+                    tmpNodePrev->setNext(newNode);
+                    newNode->setNext(tmpNodeAct);
+                    break;
+                }
+                tmpNodePrev = tmpNodeAct;
+                tmpNodeAct = tmpNodeAct->getNext();
+            }
+            tmpNodePrev->setNext(newNode);
+        }
     }
     _lenght++;
 }
-
-
+#endif // PRIORITYQUEUE_H

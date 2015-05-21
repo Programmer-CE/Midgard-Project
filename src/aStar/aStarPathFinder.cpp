@@ -19,24 +19,24 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
     clearMaps();//resetea los mapas limpio y usado
 
     //se crea el nodo referente al inicio
-    ANodoTmp1=new ANode(xInitialCordenate, yInitialCordenate, 0, 0);
-    ANodoTmp1->updateDistanceF(xGoalCordenate, yGoalCordenate);
+    ANodoTmp1=new ANode(xInitialCordenate, yInitialCordenate, 0, 0);// de crea un todo tmp
+    ANodoTmp1->updateDistanceF(xGoalCordenate, yGoalCordenate);// se actualizan su peso al destino
     pQueue[QueueIndex].push(*ANodoTmp1);//se agrega a la lista de nodos libres
     OpenANodes[x][y]=ANodoTmp1->getDistanceF(); //se agrega al map de nodos libres
 
-    // A* search
-    while(pQueue[QueueIndex].getLenght()!=0){
+
+    while(pQueue[QueueIndex].getLenght()!=0){// mientras el queue contenga elementos
         
         ANodoTmp1=new ANode(pQueue[QueueIndex].top().getXPosition(),pQueue[QueueIndex].top().getYPosition(),
-                       pQueue[QueueIndex].top().getDistanceG(),pQueue[QueueIndex].top().getDistanceF());
+                            pQueue[QueueIndex].top().getDistanceG(),pQueue[QueueIndex].top().getDistanceF());
 
-        x=ANodoTmp1->getXPosition();
-        y=ANodoTmp1->getYPosition();
+        x=ANodoTmp1->getXPosition();//toma la posicion x del ANodoTmp1
+        y=ANodoTmp1->getYPosition();//toma la posicion y del ANodoTmp1
         pQueue[QueueIndex].pop(); // se qeuita de la lista de nodos libres
         OpenANodes[x][y]=0;// se desmarca del map de nodos libres
         ClosedANodes[x][y]=1;//se marca en el map de nodos cerrados
 
-        // condicion de parada al encontrar el nodo final
+        // condicion de parada al cuando ya se encuentra en el nodo final
         if(x==xGoalCordenate && y==yGoalCordenate)
         {
             // se genera el path siguendo direcciones
@@ -44,8 +44,8 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
             while(!(x==xInitialCordenate && y==yInitialCordenate))
             {
                 int j=directionMap[x][y];
-                c='0'+(j+8/2)%8;
-                aStarPath=c+aStarPath;
+                plusChar='0'+(j+8/2)%8;
+                aStarPath=plusChar+aStarPath;
                 x+=directionsX[j];
                 y+=directionsY[j];
             }
@@ -57,8 +57,8 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
             return aStarPath;//retorna el path
         }
 
-        // genera movimientos con nodos, para todos los lados
-        for(int i=0;i<8;i++){
+        // evalua los movimientos rectos y en diagonal
+        for(int i=0;i<8;i++){// 8 de 8 posibilidades
             xdx=x+directionsX[i]; ydy=y+directionsY[i];
 
             if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || map[xdx][ydy]==1
@@ -66,7 +66,7 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
             {
                 // genera los nodos hijos
                 AChildNode=new ANode( xdx, ydy, ANodoTmp1->getDistanceG(),
-                              ANodoTmp1->getDistanceF());
+                                      ANodoTmp1->getDistanceF());
                 AChildNode->UpdateDistanceG(x);
                 AChildNode->updateDistanceF(xGoalCordenate, yGoalCordenate);
 
@@ -74,9 +74,9 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
                 if(OpenANodes[xdx][ydy]==0)
                 {
                     OpenANodes[xdx][ydy]=AChildNode->getDistanceF();
-                    pQueue[QueueIndex].push(*AChildNode);
+                    pQueue[QueueIndex].push(*AChildNode);// agrega al nodo hijo
                     // posicion del ANode padre
-                    directionMap[xdx][ydy]=(i+8/2)%8;
+                    directionMap[xdx][ydy]=(i+8/2)%8;// 8 por que son 8 posibles direcciones
                 }
                 else if(OpenANodes[xdx][ydy]>AChildNode->getDistanceF())
                 {
@@ -109,28 +109,26 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
                     QueueIndex=1-QueueIndex;
                     pQueue[QueueIndex].push(*AChildNode); // se agreaga el ANodo que es la mejor opcion
                 }
-                else delete(AChildNode); //
+                else delete(AChildNode);
             }
         }
         delete(ANodoTmp1);
     }
-    return "";// sin ruta encotntrada
+    return "";// no se encontro path corecto al destino
 }
 
 void APathFinder::clearMaps(){
 
-    // limplia los mapas de libre y usado
-    for(int j=0;j<m;j++)
+    // vacia los mapas de nodos libres y usados
+    for(int j=0;j<m;j++)//recorre en y
     {
-        for(int i=0;i<n;i++)
+        for(int i=0;i<n;i++)//recorre en x
         {
             ClosedANodes[i][j]=0;
             OpenANodes[i][j]=0;
         }
     }
 }
-
-APathFinder::~APathFinder(){}
 
 
 

@@ -25,22 +25,19 @@ int ANode::getDistanceF() const {
     return _distanceF;
 }
 
-void ANode::updateDistanceF(const int & xDest, const int & yDest)
+void ANode::updateDistanceF(const int & xDestinyPos, const int & yDestiniPos)
 {
-    _distanceF=_distanceG+calculateHeuristic(xDest, yDest)*10; //A*
+    _distanceF=_distanceG+calculateHeuristic(xDestinyPos, yDestiniPos)*10;// se usa 10 para que queden calculos sensillos
 }
 
-// give better priority to going strait instead of diagonally
-void ANode::UpdateDistanceG(const int & i){ // i: direction
-
+void ANode::UpdateDistanceG(const int & i){ //si se mueve en diagonal o no
     if(i%2!=0)
         _distanceG+=14;
     else
         _distanceG+=10;
-
 }
 
-// Estimation function for the remaining distance to the goal.
+
 const int & ANode::calculateHeuristic(const int & xDestinyPosition, const int & yDestinYPosition) const{
 
     static int xDistance, yDistance, finalDistance;
@@ -59,8 +56,15 @@ const int & ANode::calculateHeuristic(const int & xDestinyPosition, const int & 
     return(finalDistance);
 }
 
+bool ANode::operator <(const ANode &othernode)
+{
+    return false;
+}
+
+bool ANode::operator >(const ANode &othernode)
+{
+    return false;
+}
+
 ANode::~ANode(){}
 
-//bool ANode::operator<( ANode a, ANode b){
-  //  return a.getDistanceF() < b.getDistanceF();
-//}
