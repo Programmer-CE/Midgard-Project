@@ -60,6 +60,10 @@ public:
      * @return la cantidad de individuos o sea el largo de la lista
      */
     int getLenght();
+    /**
+     * @brief getIterator retorna un iterador para los individuo
+     * @return un iterador del individuo
+     */
     IIterator<Comparer<Individuo> > *getIterator();
 };
 

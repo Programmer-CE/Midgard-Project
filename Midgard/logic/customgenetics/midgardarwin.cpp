@@ -158,15 +158,19 @@ Individuo *MidgarDarwin::searchIndividuoToMatch(Individuo *pParent)
     Villager *pOtherParent = 0;
     int reproduct = vrandom.random()%100;
     bool selected = false;
+    DoubleList<int> _indexes;
     for (int x = 0; x < pPoblation->getLenght();x++){
         pOtherParent = (Villager*)_iterator->getNext().getData();
         if (((Villager*)pParent)->gender() ^ pOtherParent->gender()){
+            _indexes.add(x);
             // si es mayor al valor de reproduccion con un individuo bueno
             // se reproducira con un individuo bueno
             // en otro caso se reproducira con un individuo malo
-            if (reproduct > 30)if(pOtherParent->isSelected()){selected = true; break;}
-            else if(!pOtherParent->isSelected()){selected = true;break;}
+            //if (reproduct > 30)if(pOtherParent->isSelected()){selected = true; break;}
+            //else if(!pOtherParent->isSelected()){selected = true;break;}
         }
     }
+    if (_indexes.getLenght() !=0)pOtherParent = (Villager *)pPoblation->getIndividuousByIndex(_indexes.get(vrandom.random()%_indexes.getLenght()));
+    else pOtherParent = 0;
     return pOtherParent;
 }

@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MidgardMenu w;
     w.show();
-    /*
     DoubleList<Comparer<Individuo> > *_lista = new DoubleList<Comparer<Individuo> >();
     Poblation * po = new Poblation();
     po->setDataList(_lista);
@@ -38,8 +37,8 @@ int main(int argc, char *argv[])
         x->evolveStep();
         print(po->getDataList());
     }
-    print(po->getDataList());
     */
+    print(po->getDataList());
     return a.exec();
 }
 void print(DoubleList<Comparer<Individuo> > *lista)

@@ -2,7 +2,8 @@
 #define MIDGARDMENU_H
 
 #include <QMainWindow>
-
+#include <QRegExpValidator>
+#include "mapselector.h"
 namespace Ui {
 class MidgardMenu;
 }
@@ -10,7 +11,8 @@ class MidgardMenu;
 class MidgardMenu : public QMainWindow
 {
     Q_OBJECT
-
+    QRegExpValidator *ipVerificator;
+    MapSelector mapSelector;
 public:
     explicit MidgardMenu(QWidget *parent = 0);
     ~MidgardMenu();

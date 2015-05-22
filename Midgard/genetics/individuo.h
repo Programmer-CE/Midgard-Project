@@ -60,8 +60,21 @@ public:
      * @param fitnessverify el nuevo verificador de fitness del objeto
      */
     void setFitnessverify(FitnessVerificator *fitnessverify);
+    /**
+     * @brief ~Individuo, es el destructor de la clase
+     */
     virtual ~Individuo();
+    /**
+     * @brief isSelected, es el metodo que se encarga de retornar si el individuo es seleccionado
+     * @return true si el individuo es seleccionado para reproducirse, false si
+     * el individuo que no esta seleccionado
+     */
     bool isSelected() const;
+    /**
+     * @brief setIsSelected setea si el individuo es seleccionado
+     * @param isSelected true si el individuo se quiere seleccionado, false si
+     * el individuo no se quiere seleccionar
+     */
     void setIsSelected(bool isSelected);
 
     virtual bool operator <(const Individuo &v) = 0;

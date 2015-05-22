@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 QT += widgets
 CONFIG += c++11
 
@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     genetics/individuousfabric.cpp \
     genetics/poblation.cpp \
     exception/exception.cpp \
-    exception/nullpointerexception.cpp
+    exception/nullpointerexception.cpp \
+    mapselector.cpp
 
 HEADERS  += midgardmenu.h \
     logic/customgenetics/hpentity.h \
@@ -57,9 +58,11 @@ HEADERS  += midgardmenu.h \
     genetics/individuousfabric.h \
     genetics/poblation.h \
     exception/exception.h \
-    exception/nullpointerexception.h
+    exception/nullpointerexception.h \
+    mapselector.h
 
-FORMS    += midgardmenu.ui
+FORMS    += midgardmenu.ui \
+    mapselector.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../build-CPPDataStructure-Desktop-Release/release/ -lCPPDataStructure
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../build-CPPDataStructure-Desktop-Release/debug/ -lCPPDataStructure
@@ -73,4 +76,7 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../build
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../build-CPPDataStructure-Desktop-Release/release/CPPDataStructure.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../build-CPPDataStructure-Desktop-Release/debug/CPPDataStructure.lib
 else:unix: PRE_TARGETDEPS += $$PWD/../../build-CPPDataStructure-Desktop-Release/libCPPDataStructure.a
+
+RESOURCES += \
+    resource.qrc
 

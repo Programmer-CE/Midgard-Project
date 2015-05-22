@@ -30,11 +30,14 @@ public:
     virtual void evolve();
     /**
      * @brief evolveStep hace un paso de evolucion o sea una sola generacion de datos.
+     * el proceso consiste en calcular el fitness, luego seleccionar a los individuos,
+     * generar individuos reproduciendolos, agregar la nueva generacion y eliminar a los
+     * individuos malos
      */
     virtual void evolveStep();
     /**
      * @brief getPoblation obtiene la poblacion de individuos
-     * @return
+     * @return la poblacion de individuos
      */
     virtual Poblation *getPoblation();
     /**
@@ -68,6 +71,10 @@ protected:
      */
     virtual Individuo *searchIndividuoToMatch(Individuo *pParent) = 0;
 
+    /**
+     * @brief select Se encarga de seleccionar a los individuos despues de haber calculado
+     * su fitness
+     */
     virtual void select() = 0;
 };
 

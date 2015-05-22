@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MidgardMenu</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/icons/eagle.svg</normaloff>:/icons/eagle.svg</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
@@ -95,7 +99,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="ipget"/>
+         <widget class="QLineEdit" name="ipget">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="inputMask">
+           <string/>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="label_2">
@@ -105,7 +116,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="portget"/>
+         <widget class="QSpinBox" name="portget">
+          <property name="maximum">
+           <number>99999</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -120,6 +135,13 @@
        <widget class="QPushButton" name="ver">
         <property name="text">
          <string>ver</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>play/pause</string>
         </property>
        </widget>
       </item>
@@ -148,7 +170,9 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
  <slots>
   <slot>addServer()</slot>
