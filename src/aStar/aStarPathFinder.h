@@ -8,15 +8,20 @@
 #include "pqNode.h"
 
 
+struct block{
+    int xCordenate;
+    int yCordenate;
+};
+
+
+
+
 const int n=60; // dimencion horizontal
 const int m=60; // dimencion vertical
-int map[n][m];
-int ClosedANodes[n][m]; // mapa de nodos a los que no se puede ir
-int OpenANodes[n][m]; // mapa dde nodos a los que puede ir
-int directionMap[n][m]; // mapa de direcciones
-int directionsX[8]={1, 1, 0, -1, -1, -1, 0, 1};
-int directionsY[8]={0, 1, 1, 1, 0, -1, -1, -1};
-
+bool map[n][m];
+bool ClosedANodes[n][m]; // mapa de nodos a los que no se puede ir
+bool OpenANodes[n][m]; // mapa dde nodos a los que puede ir
+int directionMap[n][m]; // mapa de direcciones, almacena los movimientos
 
 
 class APathFinder{
@@ -24,14 +29,15 @@ class APathFinder{
     int QueueIndex; // para diferenciar entre los queue
     ANode* ANodoTmp1;
     ANode* AChildNode;
-    int x, y, xdx, ydy;
-    char plusChar;
+    int x, y, xDirectionx, yDirectiony;//para manejar los movimientos por el los mapas
+    char plusChar;// char para crear el path
+    int directionsX[8]={1, 1, 0, -1, -1, -1, 0, 1};//para generar todos las posibles convinaciones de movimientos xy
+    int directionsY[8]={0, 1, 1, 1, 0, -1, -1, -1};
     /**
       elimina el contenido de los mapas de nodos libres y nodos ya vistos
      * @brief clearMaps
      */
     void clearMaps();
-
 
 public:
     /**

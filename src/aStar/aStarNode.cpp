@@ -56,15 +56,6 @@ const int & ANode::calculateHeuristic(const int & xDestinyPosition, const int & 
     return(finalDistance);
 }
 
-bool ANode::operator <(const ANode &othernode)
-{
-    return false;
-}
-
-bool ANode::operator >(const ANode &othernode)
-{
-    return false;
-}
 
 ANode::~ANode(){}
 

@@ -70,9 +70,6 @@ public:
      */
     const int & calculateHeuristic(const int & xDest, const int & yDest)const;//distancia faltante
 
-    bool operator <(const ANode & othernode);
-    bool operator >(const ANode & othernode);
-
 };
 
 #endif // ASTARNODE_H

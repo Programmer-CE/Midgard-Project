@@ -39,60 +39,68 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
         // condicion de parada al cuando ya se encuentra en el nodo final
         if(x==xGoalCordenate && y==yGoalCordenate)
         {
-            // se genera el path siguendo direcciones
-            std::string aStarPath="";
+            // se genera el path siguendo direcciones de atras hasta llegar a las cordenadas iniciales
             while(!(x==xInitialCordenate && y==yInitialCordenate))
             {
-                int j=directionMap[x][y];
-                plusChar='0'+(j+8/2)%8;
-                aStarPath=plusChar+aStarPath;
-                x+=directionsX[j];
-                y+=directionsY[j];
+                int newDirect=directionMap[x][y];//se recuperan los moviemintos guardados
+                int xNextCordenate=xInitialCordenate;
+                int yNextCordenate=yInitialCordenate;
+                xNextCordenate=xNextCordenate+directionsX[(newDirect+8/2)%8]; //se saca la coordenda x
+                yNextCordenate=yNextCordenate+directionsY[(newDirect+8/2)%8];//se saca la coordenada y
+
+                //////////////////////////
+
+                //poner lo de llenar el nodo con la cordenadas, cambiar los returns por la lista
+                //de movimientos a realizar,
+
+                //////////////////////////
+
+
+                //se actualiza la variable xy para navegar en el direcctionMap
+                x+=directionsX[newDirect];
+                y+=directionsY[newDirect];
             }
 
-            delete (ANodoTmp1);
+            delete (ANodoTmp1);// se elimina el nodo temporal 1
             while(pQueue[QueueIndex].getLenght()!=0){// vacia lo restante en la lista
-                pQueue[QueueIndex].pop();
+                pQueue[QueueIndex].pop();//elimina el primero
             }
-            return aStarPath;//retorna el path
+            return "";//retorna el path
         }
-
         // evalua los movimientos rectos y en diagonal
         for(int i=0;i<8;i++){// 8 de 8 posibilidades
-            xdx=x+directionsX[i]; ydy=y+directionsY[i];
+            xDirectionx=x+directionsX[i];
+            yDirectiony=y+directionsY[i];
 
-            if(!(xdx<0 || xdx>n-1 || ydy<0 || ydy>m-1 || map[xdx][ydy]==1
-                 || ClosedANodes[xdx][ydy]==1))
+            if(!(xDirectionx<0 || xDirectionx>n-1 || yDirectiony<0 || yDirectiony>m-1 || map[xDirectionx][yDirectiony]==1
+                 || ClosedANodes[xDirectionx][yDirectiony]==1))
             {
                 // genera los nodos hijos
-                AChildNode=new ANode( xdx, ydy, ANodoTmp1->getDistanceG(),
-                                      ANodoTmp1->getDistanceF());
+                AChildNode=new ANode(xDirectionx,yDirectiony,ANodoTmp1->getDistanceG(),ANodoTmp1->getDistanceF());
                 AChildNode->UpdateDistanceG(x);
                 AChildNode->updateDistanceF(xGoalCordenate, yGoalCordenate);
 
-                // si n o esta en el map de possiciones libres lo agrega
-                if(OpenANodes[xdx][ydy]==0)
+                // si no esta en el map de possiciones libres lo agrega
+                if(OpenANodes[xDirectionx][yDirectiony]==0)
                 {
-                    OpenANodes[xdx][ydy]=AChildNode->getDistanceF();
+                    OpenANodes[xDirectionx][yDirectiony]=AChildNode->getDistanceF();
                     pQueue[QueueIndex].push(*AChildNode);// agrega al nodo hijo
                     // posicion del ANode padre
-                    directionMap[xdx][ydy]=(i+8/2)%8;// 8 por que son 8 posibles direcciones
+                    directionMap[xDirectionx][yDirectiony]=(i+8/2)%8;// 8 por que son 8 posibles direcciones
                 }
-                else if(OpenANodes[xdx][ydy]>AChildNode->getDistanceF())
+                else if(OpenANodes[xDirectionx][yDirectiony]>AChildNode->getDistanceF())
                 {
                     //actializa la F
-                    OpenANodes[xdx][ydy]=AChildNode->getDistanceF();
+                    OpenANodes[xDirectionx][yDirectiony]=AChildNode->getDistanceF();
                     // actualiza informacion del ANode padre
-                    directionMap[xdx][ydy]=(i+8/2)%8;
+                    directionMap[xDirectionx][yDirectiony]=(i+8/2)%8;
 
                     // reemplaza el nodo
                     // pasando todo de una cola a otra
                     // ignorando el nodo que se reemplazara
-                    while(!(pQueue[QueueIndex].top().getXPosition()==xdx &&
-                            pQueue[QueueIndex].top().getYPosition()==ydy))
+                    while(!(pQueue[QueueIndex].top().getXPosition()==xDirectionx && pQueue[QueueIndex].top().getYPosition()==yDirectiony))
                     {
-                        pQueue[1-QueueIndex].push(pQueue[QueueIndex].top());
-                        pQueue[QueueIndex].pop();
+                        pQueue[1-QueueIndex].push(pQueue[QueueIndex].topPop());// pasa todo de un queue a otro
                     }
                     pQueue[QueueIndex].pop(); //se elimina el nodo deseado
 
@@ -101,34 +109,40 @@ std::string APathFinder::PathFinder( const int & xInitialCordenate, const int & 
                         QueueIndex=1-QueueIndex;
                     }
 
-                    while(pQueue[QueueIndex].getLenght()!=0)
+                    while(pQueue[QueueIndex].getLenght()!=0)// vacia el queue
                     {
                         pQueue[1-QueueIndex].push(pQueue[QueueIndex].top());
                         pQueue[QueueIndex].pop();
                     }
+                    //como son dos queue la mejor opcion es meverse entre ellos con 1-el valor actual
                     QueueIndex=1-QueueIndex;
                     pQueue[QueueIndex].push(*AChildNode); // se agreaga el ANodo que es la mejor opcion
                 }
                 else delete(AChildNode);
             }
         }
-        delete(ANodoTmp1);
+        delete(ANodoTmp1);//elimina
     }
-    return "";// no se encontro path corecto al destino
+    return "";// no se encontro path corecto al destino retorna una lista vacia, comprobar por fuera
 }
 
-void APathFinder::clearMaps(){
+void APathFinder::clearMaps(){// limpia y restablece valores default
 
     // vacia los mapas de nodos libres y usados
     for(int j=0;j<m;j++)//recorre en y
     {
         for(int i=0;i<n;i++)//recorre en x
         {
-            ClosedANodes[i][j]=0;
             OpenANodes[i][j]=0;
+            ClosedANodes[i][j]=0;
+
         }
     }
 }
 
+/**
 
-
+bool operator <(PQNode<ANode> a, PQNode<ANode> b){
+    return a.getData().getDistanceF()<b.getData().getDistanceF();
+}
+*/
