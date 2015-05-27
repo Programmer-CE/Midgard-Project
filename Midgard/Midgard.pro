@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network
+QT       += core gui network xml xmlpatterns
 QT += widgets
 CONFIG += c++11
 
@@ -36,7 +36,16 @@ SOURCES += main.cpp\
     genetics/poblation.cpp \
     exception/exception.cpp \
     exception/nullpointerexception.cpp \
-    mapselector.cpp
+    mapselector.cpp \
+    updater.cpp \
+    logic/emulator.cpp \
+    logic/emulationsmanager.cpp \
+    logic/idemulatormessage.cpp \
+    logic/initialstats.cpp \
+    logic/raza.cpp \
+    logic/connectionManager/fclient.cpp \
+    logic/connectionManager/fserver.cpp \
+    logic/god.cpp
 
 HEADERS  += midgardmenu.h \
     logic/customgenetics/hpentity.h \
@@ -59,7 +68,16 @@ HEADERS  += midgardmenu.h \
     genetics/poblation.h \
     exception/exception.h \
     exception/nullpointerexception.h \
-    mapselector.h
+    mapselector.h \
+    updater.h \
+    logic/emulator.h \
+    logic/emulationsmanager.h \
+    logic/idemulatormessage.h \
+    logic/initialstats.h \
+    logic/raza.h \
+    logic/connectionManager/fclient.h \
+    logic/connectionManager/fserver.h \
+    logic/god.h
 
 FORMS    += midgardmenu.ui \
     mapselector.ui
@@ -80,3 +98,7 @@ else:unix: PRE_TARGETDEPS += $$PWD/../../build-CPPDataStructure-Desktop-Release/
 RESOURCES += \
     resource.qrc
 
+
+QMAKE_CXXFLAGS += -lefence
+
+LIBS += -ljsoncpp

@@ -16,6 +16,10 @@ class MapSelector : public QDialog
     QString mapPath;
     QString geneticConfigurationPath;
     QMessageBox _warningMessage;
+    QString idEmulation;
+    QString mapName;
+    QString configName;
+    int _portConector;
 public:
     explicit MapSelector(QWidget *parent = 0);
     ~MapSelector();
@@ -25,6 +29,18 @@ public:
 
     QString getGeneticConfigurationPath() const;
     void setGeneticConfigurationPath(const QString &value);
+
+    QString getIdEmulation() const;
+    void setIdEmulation(const QString &value);
+
+    QString getMapName() const;
+    void setMapName(const QString &value);
+
+    QString getConfigName() const;
+    void setConfigName(const QString &value);
+
+    int portConector() const;
+    void setPortConector(int portConector);
 
 private slots:
 

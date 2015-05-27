@@ -6,16 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>425</width>
+    <width>631</width>
     <height>589</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MidgardMenu</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
-    <normaloff>:/icons/eagle.svg</normaloff>:/icons/eagle.svg</iconset>
+    <normaloff>:/icons/icons/freedroid.svg</normaloff>:/icons/icons/freedroid.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -63,13 +69,34 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QListWidget" name="servers">
+             <widget class="QTableWidget" name="servers">
               <property name="minimumSize">
                <size>
                 <width>600</width>
                 <height>1500</height>
                </size>
               </property>
+              <property name="columnCount">
+               <number>3</number>
+              </property>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>160</number>
+              </attribute>
+              <column>
+               <property name="text">
+                <string>Puerto</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Configuracion</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Mapa</string>
+               </property>
+              </column>
              </widget>
             </item>
            </layout>
@@ -81,69 +108,85 @@
      </widget>
     </item>
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="insertar">
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>port:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="portget">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>99999</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="insertar">
+            <property name="text">
+             <string>insertar</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="borrar">
           <property name="text">
-           <string>insertar</string>
+           <string>borrar</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QPushButton" name="ver">
           <property name="text">
-           <string>ip:</string>
+           <string>ver</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="ipget">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="inputMask">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_2">
+         <widget class="QPushButton" name="playOrPause">
           <property name="text">
-           <string>port:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="portget">
-          <property name="maximum">
-           <number>99999</number>
+           <string>play/pause</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QPushButton" name="borrar">
-        <property name="text">
-         <string>borrar</string>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="ver">
-        <property name="text">
-         <string>ver</string>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>play/pause</string>
-        </property>
-       </widget>
+       </spacer>
       </item>
      </layout>
     </item>
@@ -154,7 +197,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>425</width>
+     <width>631</width>
      <height>25</height>
     </rect>
    </property>

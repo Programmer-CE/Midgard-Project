@@ -1,5 +1,5 @@
 #include "individuo.h"
-
+#include <iostream>
 
 int Individuo::_Serial = 0;
 

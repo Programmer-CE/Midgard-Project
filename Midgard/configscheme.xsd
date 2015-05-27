@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="config">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="class" maxOccurs="unbounded"/>
+        <xs:element maxOccurs="unbounded" minOccurs="8" name="god">
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="maximunLife" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="atk" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int">
+                  <xs:whiteSpace value="collapse"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="magic" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="def" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="vel" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="int" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="blot" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="runes" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="superstition" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="vital-energy" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="maximun-age">
+              <xs:simpleType>
+                <xs:restriction base="xs:int"/>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="initial-poblation" type="xs:int" use="required"/>
+      <xs:attribute name="years-of-barbarian-age" type="xs:int" use="required"/>
+      <xs:attribute name="years-of-superstition-age" type="xs:int" use="required"/>
+      <xs:attribute name="years-of-science-age" type="xs:int" use="required"/>
+      <xs:attribute name="years-of-supremacy-age" type="xs:int" use="required"/>
+      <xs:attribute name="years-of-union-age" type="xs:int" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="class">
+    <xs:complexType>
+      <xs:sequence maxOccurs="1">
+        <xs:element ref="classbond" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="important-characteristics" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="sub-class" maxOccurs="unbounded" minOccurs="4"/>
+      </xs:sequence>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="important-characteristics" abstract="false">
+    <xs:complexType>
+      <xs:attribute name="maximunLife" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="atk" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="magic" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="def" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="vel" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="int" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="blot" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="runes" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="superstition" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="vital-energy" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="maximun-age">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="classbond">
+    <xs:complexType>
+      <xs:attribute name="maximunLife" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="2147483647"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="atk" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:whiteSpace value="collapse"/>
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="magic" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="def" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="vel" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="int" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="blot" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="runes" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="superstition" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="vital-energy" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="maximun-age">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sub-class">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="sub-classbound" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sub-classbound">
+    <xs:complexType>
+      <xs:attribute name="maximunLife" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="atk" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int">
+            <xs:whiteSpace value="collapse"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="magic" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="def" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="vel" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="int" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="blot" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="runes" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="superstition" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="vital-energy" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="maximun-age">
+        <xs:simpleType>
+          <xs:restriction base="xs:int"/>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

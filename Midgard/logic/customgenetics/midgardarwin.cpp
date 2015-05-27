@@ -33,25 +33,23 @@ void MidgarDarwin::removeIndividuous()
     DoubleList<int> _individuos;
     Poblation *poblation = getPoblation();
     IIterator<int> *_iterator2 = _individuos.getIterator();
-    Individuo* tmp = 0;
+    Villager* tmp = 0;
     Random vrand;
     int g = vrand.random()%2;
-    // la operacion se hace en dos "fors" para que disminuir el peso de la operacion
-    //std::cout << "el largo de la nueva generacion: " << _newGenerationLenght << endl;
-    //std::cout << "individuos a borrar: " << _newGenerationLenght-1 << endl;
-    //bool toDelete = vrand.random()%2;
-    int protect = vrand.random()%_newGenerationLenght;
-    if (g)protect = -1;
-    //if (!toDelete)protect = -1;
-    int deletes = 0;
-    for (int x =0; x < poblation->getLenght();x++){
-        tmp = poblation->getIndividuousByIndex(x-deletes);
-        if (deletes == _newGenerationLenght)break;
-        if (tmp->fitness() < promedio){
-            if(protect != x){
-                poblation->removeIndividuousByIndex(x-deletes);
-                delete tmp;
-                deletes++;
+    int protect = 0;
+    if (_newGenerationLenght != 0 ){
+        protect = vrand.random()%_newGenerationLenght;
+        if (g)protect = -1;
+        int deletes = 0;
+        for (int x =0; x < poblation->getLenght();x++){
+            tmp = (Villager*)poblation->getIndividuousByIndex(x-deletes);
+            if (deletes == _newGenerationLenght)break;
+            if (tmp->fitness() < promedio){
+                if(protect != x){
+                    poblation->removeIndividuousByIndex(x-deletes);
+                    delete tmp;
+                    deletes++;
+                }
             }
         }
     }
@@ -65,9 +63,6 @@ float MidgarDarwin::calculateTotalFitness()
     FitnessVerificator* verificator = _iterator->getCurrent().getData()->fitnessverify();
     float currentFitness = 0;
     float totalFitness = 0;
-    Villager * villager = 0;
-
-    //calculando promedios de caracteristicas basicas, atk def blot etc
     float pivot = 0;
     atkprom = 0;
     pivot =0;
@@ -98,7 +93,6 @@ float MidgarDarwin::calculateTotalFitness()
     ((VillagersVerificator*)verificator)->_Atkprom = atkprom;
     ((VillagersVerificator*)verificator)->_Defenseprom = defprom;
     ((VillagersVerificator*)verificator)->_Blotprom = blotprom;
-    //fin de los calculos
     _iterator = poblation->getIterator();
     for (int x = 0; x < poblation->getLenght(); x++){
         verificator = _iterator->getCurrent().getData()->fitnessverify();
@@ -107,14 +101,6 @@ float MidgarDarwin::calculateTotalFitness()
         totalFitness +=currentFitness;
     }
     delete _iterator;
-    /**
-    _iterator = poblation->getIterator();
-    for (int x = 0; x < poblation->getLenght(); x++){
-        currentFitness = _iterator->getCurrent().getData()->fitness();
-        _iterator->getNext().getData()->setFitness(currentFitness/totalFitness);
-    }
-    delete _iterator;
-    */
     return totalFitness;
 
 }
@@ -156,21 +142,25 @@ Individuo *MidgarDarwin::searchIndividuoToMatch(Individuo *pParent)
     Random vrandom;
     IIterator<Comparer<Individuo> > *_iterator = pPoblation->getIterator();
     Villager *pOtherParent = 0;
-    int reproduct = vrandom.random()%100;
-    bool selected = false;
     DoubleList<int> _indexes;
     for (int x = 0; x < pPoblation->getLenght();x++){
         pOtherParent = (Villager*)_iterator->getNext().getData();
         if (((Villager*)pParent)->gender() ^ pOtherParent->gender()){
             _indexes.add(x);
-            // si es mayor al valor de reproduccion con un individuo bueno
-            // se reproducira con un individuo bueno
-            // en otro caso se reproducira con un individuo malo
-            //if (reproduct > 30)if(pOtherParent->isSelected()){selected = true; break;}
-            //else if(!pOtherParent->isSelected()){selected = true;break;}
         }
     }
     if (_indexes.getLenght() !=0)pOtherParent = (Villager *)pPoblation->getIndividuousByIndex(_indexes.get(vrandom.random()%_indexes.getLenght()));
     else pOtherParent = 0;
     return pOtherParent;
+}
+
+MidgarDarwin::~MidgarDarwin()
+{
+    //std::cout << "darwin delete: " << _poblacion->getLenght() <<std::endl;
+    while(_poblacion->getLenght() !=0){
+        delete _poblacion->getIndividuousByIndex(0);
+        _poblacion->removeIndividuousByIndex(0);
+    }
+    delete _poblacion;
+    delete _crosser;
 }

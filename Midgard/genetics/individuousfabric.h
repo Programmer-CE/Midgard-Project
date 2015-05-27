@@ -16,6 +16,7 @@ public:
      * responsabilidad del programador liberar la memoria.
      */
     virtual Individuo *create(int pType) = 0;
+    virtual ~IndividuousFabric(){}
 };
 
 #endif // INDIVIDUOUSFABRIC_H

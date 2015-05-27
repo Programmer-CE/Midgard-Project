@@ -50,8 +50,8 @@ void Darwin::evolveStep()
     }
     delete nuevaGeneracion;
     delete _iterator;
-    // remueve los individuos malos de la vieja generacion
     removeIndividuous();
+    // remueve los individuos malos de la vieja generacion
 
 }
 

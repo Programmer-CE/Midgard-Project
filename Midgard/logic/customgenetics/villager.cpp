@@ -164,6 +164,18 @@ bool Villager::operator !=(const Individuo &v)
 {
     return getId() != v.getId();
 }
+
+bool Villager::ubicated() const
+{
+    return _ubicated;
+}
+
+void Villager::setUbicated(bool ubicated)
+{
+    _ubicated = ubicated;
+}
 Villager::Villager()
 {
+    _x = _y = 0;
+    _ubicated = false;
 }

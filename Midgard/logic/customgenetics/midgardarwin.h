@@ -11,6 +11,7 @@ public:
     float promedio;
     float atkprom,defprom,blotprom;
     // Darwin interface
+    virtual ~MidgarDarwin();
 protected:
     void removeIndividuous();
     float calculateTotalFitness();

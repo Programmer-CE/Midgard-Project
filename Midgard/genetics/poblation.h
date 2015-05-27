@@ -4,7 +4,6 @@
 #ifndef POBLATION_H
 #define POBLATION_H
 
-
 /**
  * @brief La clase Poblation, es una clase que solamente contiene a los Individuo
  * se encarga de regular el acceso a los mismos al eliminar, agregar obtener a los inviduos
@@ -14,7 +13,7 @@ class Poblation
 {
     DoubleList<Comparer<Individuo> > *_poblation;
 public:
-    Poblation();
+    Poblation(bool create=false);
     void setDataList(DoubleList<Comparer<Individuo> > *pPoblation);
     DoubleList<Comparer<Individuo> > *getDataList();
     /**

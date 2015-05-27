@@ -1,5 +1,9 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/schema">
+        <file>esquema.xsd</file>
+        <file>configscheme.xsd</file>
+    </qresource>
+    <qresource prefix="/icons">
         <file>icons/anki.svg</file>
         <file>icons/antimicro.svg</file>
         <file>icons/aseprite.svg</file>

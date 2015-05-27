@@ -1,3 +1,4 @@
+#include "iostream"
 #ifndef HPENTITY_H
 #define HPENTITY_H
 

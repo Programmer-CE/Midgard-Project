@@ -18,6 +18,7 @@ class Villager:public Individuo,public HpEntity
     int _superstition;
     // true si es hombre false si es mujer
     bool _gender;
+    bool _ubicated;
     int _poblationId;
     string _breed;
     int _type;
@@ -56,6 +57,8 @@ public:
     bool operator >(const Individuo &v);
     bool operator !=(const Individuo &v);
 
+    bool ubicated() const;
+    void setUbicated(bool ubicated);
 };
 
 #endif // VILLAGER_H

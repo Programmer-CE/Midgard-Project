@@ -1,8 +1,10 @@
 #include "poblation.h"
+#include "ordinateList/doublelist.h"
 
-Poblation::Poblation()
+Poblation::Poblation(bool create)
 {
-    _poblation = 0;
+    if (create)_poblation = new DoubleList<Comparer<Individuo> >();
+    else _poblation = 0;
 }
 
 void Poblation::setDataList(DoubleList<Comparer<Individuo> > *pPoblation)

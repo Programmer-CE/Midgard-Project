@@ -51,6 +51,7 @@ public:
      * @return true si el dato es diferente false si no es asi
      */
     bool operator!=(const Comparer<E> &toCompare);
+    virtual ~Comparer(){}
 };
 
 template<class E>

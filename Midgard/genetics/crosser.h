@@ -31,7 +31,7 @@ public:
     /**
      * @brief ~Crosser liberador de memoria virtual
      */
-    virtual ~Crosser(){}
+    virtual ~Crosser(){delete _fabric;}
     /**
      * @brief setIndividuousFabric setea la fabrica que va a crear al individuo
      * @param pFabric el puntero a la fabrica

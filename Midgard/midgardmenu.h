@@ -24,6 +24,8 @@ private slots:
 
     void on_ver_clicked();
 
+    void on_playOrPause_clicked();
+
 private:
     Ui::MidgardMenu *ui;
 };
