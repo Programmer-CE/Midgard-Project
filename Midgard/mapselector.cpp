@@ -79,7 +79,10 @@ void MapSelector::accept()
     if (ui->mapconfig->text().compare("")!=0 && ui->geneticconfigure->text().compare("")!=0){
         QDialog::accept();
         EmulationsManager *emulationMan = EmulationsManager::getInstance();
+        qDebug() << ui->mapconfig->text();
+        qDebug() << ui->geneticconfigure->text();
         IDEmulatorMessage idemu= emulationMan->createEmulation(ui->mapconfig->text(),ui->geneticconfigure->text(),_portConector);
+
         if(idemu.getMessage().compare(emulationMan->SUCESS) == 0){
             mapPath = ui->mapconfig->text();
             geneticConfigurationPath = ui->geneticconfigure->text();

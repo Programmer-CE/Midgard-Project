@@ -20,17 +20,20 @@ IDEmulatorMessage EmulationsManager::createEmulation(QString pMapPath, QString p
 {
     IDEmulatorMessage message;
     if(!Emulator::verifyMapDocument(pMapPath)){
+        std::cout << "Mapa invalido" << std::endl;
         message.setId("-1");
         message.setMessage(ERROR_MAP_FILE);
         return message;
     }
     if (!Emulator::verifyConfigurationDocument(pMapPath)){
+        std::cout << "config invalido" << std::endl;
         IDEmulatorMessage message;
         message.setId("-1");
         message.setMessage(ERROR_CONFIGURATION_FILE);
         return message;
 
     }
+    std::cout << "valids invalido" << std::endl;
     Emulator *emulation = new Emulator();
     emulation->setConfigurationPath(pConfigurationPath);
     emulation->setMapPath(pMapPath);
@@ -54,6 +57,7 @@ IDEmulatorMessage EmulationsManager::createEmulation(QString pMapPath, QString p
 bool EmulationsManager::runEmulation(QString id)
 {
     IIterator<Emulator*> *iterator = _emulatorCollection.getIterator();
+    bool toReturn = true;
     for (int x =0; x < _emulatorCollection.getLenght();x++){
         if(id.compare(iterator->getCurrent()->getId()) == 0){
             break;
@@ -61,12 +65,11 @@ bool EmulationsManager::runEmulation(QString id)
         iterator->getNext();
     }
     if (iterator->getCurrent()->isRunning()){
-        delete iterator;
-        return false;
+        toReturn = false;
     }
     iterator->getCurrent()->start();
     delete iterator;
-    return true;
+    return toReturn;
 }
 
 bool EmulationsManager::stopEmulation(QString id)
@@ -114,9 +117,14 @@ bool EmulationsManager::removeEmulation(QString id)
         emul = _emulatorCollection.get(x);
         if(id.compare(emul->getId()) == 0){
             if (emul->isRunning()){
-                emul->quit();
+                qDebug() << "El thread esta corriendo";
+                //emul->quit();
+                //emul->exit(-1);
+                while(!emul->isFinished())emul->terminate();
+                qDebug() << "El thread esta corriendo";
             }
             delete emul;
+            qDebug() << "la emulacion se ha borrado";
             _emulatorCollection.remove(x);
             break;
         }

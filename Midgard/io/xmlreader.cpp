@@ -109,7 +109,7 @@ bool XMLReader::verifyMapFile(QString pMapPath)
             if ( schema.isValid() ) {
                 QXmlSchemaValidator validator( schema );
 
-                if ( validator.validate(QUrl::fromLocalFile(pMapPath))) {
+                if ( validator.validate(QString("file://").append(pMapPath))) {
                     if (!qdd.setContent(&file)){
                         sucess = false;
                     }
@@ -175,6 +175,7 @@ bool XMLReader::verifyConfiguration(QString pConfigurationPath)
     QFile filescheme(":/schema/configscheme.xsd");
     QXmlSchema schema;
     QDomDocument qdd;
+    if (file.exists())std::cout << "the file exist" << std::endl;
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         //em.showMessage("error, no se pudo abrir el archivo");
         sucess = false;
@@ -184,11 +185,13 @@ bool XMLReader::verifyConfiguration(QString pConfigurationPath)
             sucess = false;
         }
         else{
-            schema.load(&filescheme,QUrl::fromLocalFile("schema/configscheme.xsd"));
+            std::cout << "cargando esquema" << std::endl;
+            schema.load(&filescheme);
             if ( schema.isValid() ) {
+                std::cout << "es valido el esquema" << std::endl;
                 QXmlSchemaValidator validator( schema );
-
-                if ( validator.validate(QUrl::fromLocalFile(pConfigurationPath))) {
+                if ( validator.validate(QString("file://").append(pConfigurationPath))) {
+                    std::cout << "validacion existosa" << std::endl;
                     if (!qdd.setContent(&file)){
                         sucess = false;
                     }
@@ -196,6 +199,7 @@ bool XMLReader::verifyConfiguration(QString pConfigurationPath)
                     sucess = false;
                 }
             } else {
+                std::cout << "es invalido el esquema" << std::endl;
                 sucess = false;
             }
         }

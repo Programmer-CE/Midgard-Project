@@ -10,6 +10,16 @@
 
 MidgarDarwin *x;
 
+
+bool Updater::execRand() const
+{
+    return _execRand;
+}
+
+void Updater::setExecRand(bool execRand)
+{
+    _execRand = execRand;
+}
 Updater::Updater(QObject *parent) :
     QThread(parent)
 {
@@ -20,6 +30,16 @@ void print(DoubleList<Comparer<Individuo> > *);
 
 void Updater::run()
 {
+    while(_execRand){
+        if (vrand.lenght() < 100){
+            for (int x = 0; x < 100 - vrand.lenght(); x++){
+                vrand.genRand();
+            }
+        }
+        msleep(50);
+    }
+
+    /*
     DoubleList<Comparer<Individuo> > *_lista = new DoubleList<Comparer<Individuo> >();
     Poblation * po = new Poblation();
     po->setDataList(_lista);
@@ -74,8 +94,8 @@ void print(DoubleList<Comparer<Individuo> > *lista)
             hight = currentdata->fitness();
             index = x;
         }
-        */
     }
     delete _iter;
+    */
 }
 

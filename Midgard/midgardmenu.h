@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QRegExpValidator>
 #include "mapselector.h"
+#include "updater.h"
 namespace Ui {
 class MidgardMenu;
 }
@@ -13,6 +14,7 @@ class MidgardMenu : public QMainWindow
     Q_OBJECT
     QRegExpValidator *ipVerificator;
     MapSelector mapSelector;
+    Updater * randomGenerator;
 public:
     explicit MidgardMenu(QWidget *parent = 0);
     ~MidgardMenu();

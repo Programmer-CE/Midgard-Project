@@ -9,14 +9,17 @@ MidgardMenu::MidgardMenu(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MidgardMenu)//,mapSelector(this)
 {
+    randomGenerator = new Updater();
     QRegExp rx = QRegExp( "[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}" );
     ipVerificator = new QRegExpValidator(rx,0);
     ui->setupUi(this);
+    randomGenerator->start();
     //ui->servers->horizontalHeader()->;
 }
 
 MidgardMenu::~MidgardMenu()
 {
+    randomGenerator->terminate();
     delete ui;
     ui = 0;
     delete ipVerificator;

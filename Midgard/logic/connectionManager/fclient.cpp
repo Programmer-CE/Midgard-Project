@@ -54,6 +54,11 @@ void FClient::ReadyToRead()
     emit messageReceive();
 }
 
+void FClient::send()
+{
+    send(_toSend);
+}
+
 void FClient::send(QString pMessage)
 {
     if (_isConnected){

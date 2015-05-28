@@ -2,15 +2,14 @@
 #include <QApplication>
 #include <iostream>
 #include "logic/customgenetics/villager.h"
-
+#include "logic/random.h"
 
 using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MidgardMenu w;
+    Random random;
     w.show();
-    cout << sizeof (Villager) << endl;
-    cout << sizeof (Villager)*4*5*60 << endl;
     return a.exec();
 }

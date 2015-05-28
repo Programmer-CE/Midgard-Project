@@ -20,6 +20,7 @@ class MapSelector : public QDialog
     QString mapName;
     QString configName;
     int _portConector;
+
 public:
     explicit MapSelector(QWidget *parent = 0);
     ~MapSelector();

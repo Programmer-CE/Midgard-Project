@@ -21,12 +21,23 @@ void FServer::closeServer()
 {
     _server->close();
 }
+
+QString FServer::toSend() const
+{
+    return _toSend;
+}
+
+void FServer::setToSend(const QString toSend)
+{
+    _toSend = toSend;
+}
+
 FServer::FServer(QObject *parent) :
     QObject(parent)
 {
     _isConnected = false;
     serial = 0;
-    _server = new QTcpServer(this);
+    _server = new QTcpServer();
     _connector = 0;
     connect(_server,SIGNAL(newConnection()),this,SLOT(newConnection()));
     _listened = false;
@@ -44,6 +55,7 @@ void FServer::openConnection(int pPort)
 FServer::~FServer()
 {
     while(!_connectors.isEmpty()){
+        disconnect(_connectors.get(0),SIGNAL(disconnected()),this,SLOT(destroyConnection()));
         _connectors.get(0)->close();
         delete _connectors.get(0);
         _connectors.remove(0);
@@ -80,9 +92,11 @@ QString FServer::receiver(){
 void FServer::newConnection()
 {
     QTcpSocket * newconnector = _server->nextPendingConnection();
+    _newConnections.add(_connectors.getLenght());
     _connectors.add(newconnector);
     connect(newconnector,SIGNAL(disconnected()),this,SLOT(destroyConnection()));
     connect(newconnector,SIGNAL(readyRead()),this,SLOT(ReadyToRead()));
+    emit connectionAppear();
 }
 
 void FServer::ReadyToRead()
@@ -94,12 +108,19 @@ void FServer::ReadyToRead()
 void FServer::destroyConnection()
 {
     qDebug() << "destroy";
-    while (!_connectors.isEmpty()){
-        if (_connectors.get(0)->state() == QTcpSocket::UnconnectedState){
-            _connectors.get(0)->close();
-            delete _connectors.get(0);
-            _connectors.remove(0);
+    int x = 0;
+    while (x < _connectors.getLenght()){
+        if (_connectors.get(x)->state() == QTcpSocket::UnconnectedState){
+            //_connectors.get(0)->close();
+            delete _connectors.get(x);
+            _connectors.remove(x);
             break;
         }
+        x++;
     }
+}
+
+void FServer::send()
+{
+    send(_toSend);
 }

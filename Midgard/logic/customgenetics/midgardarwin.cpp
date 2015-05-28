@@ -13,8 +13,8 @@ void MidgarDarwin::sortPoblationByFitness()
     Comparer<Individuo> ind(0);
     int x = poblacion->getLenght()-1;
     while(poblacion->getLenght() != 0){
-        ind = poblacion->get(x);
-        poblacion->remove(x--);
+        ind = poblacion->get(0);
+        poblacion->remove(0);
         mylist->add(ind);
     }
     _poblacion->setDataList(mylist);
@@ -30,9 +30,7 @@ MidgarDarwin::MidgarDarwin(Crosser *pCrosser, FinalStateVerificator *pEndOfAlgor
 void MidgarDarwin::removeIndividuous()
 {
     sortPoblationByFitness();
-    DoubleList<int> _individuos;
     Poblation *poblation = getPoblation();
-    IIterator<int> *_iterator2 = _individuos.getIterator();
     Villager* tmp = 0;
     Random vrand;
     int g = vrand.random()%2;
@@ -41,19 +39,18 @@ void MidgarDarwin::removeIndividuous()
         protect = vrand.random()%_newGenerationLenght;
         if (g)protect = -1;
         int deletes = 0;
-        for (int x =0; x < poblation->getLenght();x++){
-            tmp = (Villager*)poblation->getIndividuousByIndex(x-deletes);
+        for (int x = poblation->getLenght()-1; x >-1 ;x--){
+            tmp = (Villager*)poblation->getIndividuousByIndex(x);
             if (deletes == _newGenerationLenght)break;
             if (tmp->fitness() < promedio){
                 if(protect != x){
-                    poblation->removeIndividuousByIndex(x-deletes);
+                    poblation->removeIndividuousByIndex(x);
                     delete tmp;
-                    deletes++;
                 }
+                deletes++;
             }
         }
     }
-    delete _iterator2;
 }
 
 float MidgarDarwin::calculateTotalFitness()
@@ -66,6 +63,7 @@ float MidgarDarwin::calculateTotalFitness()
     float pivot = 0;
     atkprom = 0;
     pivot =0;
+    /*
     for(int x = 0; x < poblation->getLenght();x++){
         pivot = ((Villager*)_iterator->getNext().getData())->attack();
         atkprom += pivot;
@@ -89,11 +87,11 @@ float MidgarDarwin::calculateTotalFitness()
         atkprom += pivot;
     }
     blotprom /=poblation->getLenght();
-
     ((VillagersVerificator*)verificator)->_Atkprom = atkprom;
     ((VillagersVerificator*)verificator)->_Defenseprom = defprom;
     ((VillagersVerificator*)verificator)->_Blotprom = blotprom;
     _iterator = poblation->getIterator();
+    */
     for (int x = 0; x < poblation->getLenght(); x++){
         verificator = _iterator->getCurrent().getData()->fitnessverify();
         currentFitness = verificator->verifyIndividuo(_iterator->getCurrent().getData());
@@ -118,6 +116,7 @@ void MidgarDarwin::select()
     }
     promedio /= poblation->getLenght();
     delete _iterator;
+    _iterator = 0;
     _iterator = poblation->getIterator();
     Individuo* individuo = 0;
     int selecteds = 0;
@@ -132,6 +131,7 @@ void MidgarDarwin::select()
             selecteds++;
         }
     }
+    delete _iterator;
 
 }
 
@@ -149,6 +149,7 @@ Individuo *MidgarDarwin::searchIndividuoToMatch(Individuo *pParent)
             _indexes.add(x);
         }
     }
+    delete _iterator;
     if (_indexes.getLenght() !=0)pOtherParent = (Villager *)pPoblation->getIndividuousByIndex(_indexes.get(vrandom.random()%_indexes.getLenght()));
     else pOtherParent = 0;
     return pOtherParent;

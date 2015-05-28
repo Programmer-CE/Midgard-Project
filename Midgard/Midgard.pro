@@ -45,7 +45,12 @@ SOURCES += main.cpp\
     logic/raza.cpp \
     logic/connectionManager/fclient.cpp \
     logic/connectionManager/fserver.cpp \
-    logic/god.cpp
+    logic/god.cpp \
+    logic/pathfinding/priorityQueue.cpp \
+    logic/pathfinding/pqNode.cpp \
+    logic/pathfinding/pathpoint.cpp \
+    logic/pathfinding/aStarPathFinder.cpp \
+    logic/pathfinding/aStarNode.cpp
 
 HEADERS  += midgardmenu.h \
     logic/customgenetics/hpentity.h \
@@ -77,7 +82,12 @@ HEADERS  += midgardmenu.h \
     logic/raza.h \
     logic/connectionManager/fclient.h \
     logic/connectionManager/fserver.h \
-    logic/god.h
+    logic/god.h \
+    logic/pathfinding/PriorityQueue.h \
+    logic/pathfinding/pqNode.h \
+    logic/pathfinding/pathpoint.h \
+    logic/pathfinding/aStarPathFinder.h \
+    logic/pathfinding/aStarNode.h
 
 FORMS    += midgardmenu.ui \
     mapselector.ui
@@ -99,6 +109,5 @@ RESOURCES += \
     resource.qrc
 
 
-QMAKE_CXXFLAGS += -lefence
-
 LIBS += -ljsoncpp
+LIBS += -lserial

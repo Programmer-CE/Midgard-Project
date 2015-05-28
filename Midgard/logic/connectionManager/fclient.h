@@ -11,13 +11,13 @@ class FClient : public QObject
     QTcpSocket *_client;
     bool _isConnected;
     Queue<QString> *_messages;
+    QString _toSend;
 public:
     explicit FClient(QObject *parent = 0);
     void connectToHost(QHostAddress pAddress, int pPort);
     bool isConnected() const;
     void send(QString pMessage);
     QString getMessage() const;
-
 signals:
     void messageReceive();
     void connectionOpen();
@@ -26,6 +26,7 @@ public slots:
     void onConnected();
     void unplug();
     void ReadyToRead();
+    void send();
 
 };
 

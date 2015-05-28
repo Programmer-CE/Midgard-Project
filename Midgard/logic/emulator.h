@@ -7,6 +7,7 @@
 #include <QtNetwork/QTcpServer>
 #include "logic/connectionManager/fserver.h"
 #include <string>
+#include "pathfinding/aStarPathFinder.h"
 #ifndef EMULATOR_H
 #define EMULATOR_H
 
@@ -22,10 +23,18 @@ class Emulator:public QThread
     QString ip;
     FServer *server;
     bool ** map;
+    APathFinder *_finder;
 
     std::string _message;
+    QString _mapMessage;
+    void war(int pAttackersIndex,int pAttakedIndex);
+    void invade(int pAttackersIndex);
+    void generateMapMessage();
+signals:
+    void prepareMessage();
 private slots:
     void generatePoblationMessage();
+    void sendMapMessage();
 public:
     explicit Emulator(QObject *parent = 0);
     static bool verifyMapDocument(QString ppath);
